@@ -23,7 +23,6 @@ public class AdhrustadevathaService {
 
     private static final Logger log = LoggerFactory.getLogger(AdhrustadevathaService.class);
     private final RestTemplate restTemplate;
-    private final RestTemplate ollamaRestTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public AdhrustadevathaService() {
@@ -31,11 +30,6 @@ public class AdhrustadevathaService {
         cloudFactory.setConnectTimeout(5000);
         cloudFactory.setReadTimeout(50000);
         this.restTemplate = new RestTemplate(cloudFactory);
-
-        org.springframework.http.client.SimpleClientHttpRequestFactory localFactory = new org.springframework.http.client.SimpleClientHttpRequestFactory();
-        localFactory.setConnectTimeout(5000);
-        localFactory.setReadTimeout(50000);
-        this.ollamaRestTemplate = new RestTemplate(localFactory);
     }
 
     @Value("${gemini.api.key:}")
@@ -51,43 +45,7 @@ public class AdhrustadevathaService {
         String providerName = (provider != null) ? provider.toLowerCase() : "cloud";
         String langMode = (language != null) ? language : "English";
 
-        if ("local".equals(providerName) || "ollama".equals(providerName)) {
-            try {
-                log.info("Querying local Ollama engine...");
-                String url = "http://localhost:11434/v1/chat/completions";
-                String model = (customModel != null && !customModel.isEmpty()) ? customModel : "llama3.2";
-                String prompt = buildPrompt(request, langMode);
 
-                Map<String, Object> requestBody = new HashMap<>();
-                requestBody.put("model", model);
-                
-                List<Map<String, String>> messages = new ArrayList<>();
-                Map<String, String> messageMap = new HashMap<>();
-                messageMap.put("role", "user");
-                messageMap.put("content", prompt);
-                messages.add(messageMap);
-                requestBody.put("messages", messages);
-
-                Map<String, String> responseFormat = new HashMap<>();
-                responseFormat.put("type", "json_object");
-                requestBody.put("response_format", responseFormat);
-
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
-
-                HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
-                ResponseEntity<String> responseEntity = ollamaRestTemplate.postForEntity(url, entity, String.class);
-                
-                Map<String, Object> responseMap = objectMapper.readValue(responseEntity.getBody(), Map.class);
-                List<Map<String, Object>> choices = (List<Map<String, Object>>) responseMap.get("choices");
-                Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
-                String generatedJson = (String) message.get("content");
-                return objectMapper.readValue(generatedJson, SurvivalGuide.class);
-            } catch (Exception e) {
-                log.error("Local Ollama connection failed. Engaging local fallback core.", e);
-                return buildMockGuide(request, "Local Sandbox Session", langMode);
-            }
-        }
 
         // Cloud provider cascade pipeline
         // 1. Try Gemini
