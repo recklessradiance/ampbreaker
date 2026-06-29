@@ -173,7 +173,8 @@ public class AdhrustadevathaService {
         }
 
         return "You are an expert, highly sarcastic, and humorous survival guide generator.\n" +
-                "Generate a structured, humorous survival guide with exactly 5 steps for this disaster scenario:\n" +
+                "Generate a structured, humorous survival guide with exactly 5 steps for this disaster scenario.\n" +
+                "CRITICAL: Each step's description MUST contain exactly 2 sentences.\n" +
                 "Scenario: " + request.getScenario() + "\n" +
                 "Current Location: " + request.getLocation() + "\n" +
                 "Inventory (Items the user has): " + String.join(", ", request.getInventory()) + "\n" +
@@ -209,13 +210,13 @@ public class AdhrustadevathaService {
             
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step1 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step1.setTitle("Kangaaru Padi Sachipo");
-            step1.setDescription("Nee badhalu chusi navvukodaaniki AI devullu kuda offline poyaru. Satellites anni fasak. Inka evadu ninnu kapadaledu.");
+            step1.setDescription("Nee badhalu chusi navvukodaaniki AI devullu kuda offline poyaru. Satellites anni fasak ayyayi.");
             step1.setSurvivalRateMultiplier(0.00);
             steps.add(step1);
             
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step2 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step2.setTitle("Cheddi Chetta Vethuko");
-            step2.setDescription("Nuvvu \"" + request.getLocation() + "\" daggara stuck ayyav, adi kuda nee sanchi lo unna [" + gearList + "] tho. Ee chetta tho em chesthav ra nanna? Emi cheyalev.");
+            step2.setDescription("Nuvvu \"" + request.getLocation() + "\" daggara stuck ayyav nee sanchi lo unna [" + gearList + "] tho. Ee chetta tho em chesthav ra nanna?");
             step2.setSurvivalRateMultiplier(0.05);
             steps.add(step2);
             
@@ -245,13 +246,13 @@ public class AdhrustadevathaService {
             
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step1 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step1.setTitle("Ghabrao aur Haar Mano");
-            step1.setDescription("Sare AI devta offline chale gaye hain. Satellites ka dabba gul ho gaya hai. Ab koi tumhari madad nahi kar sakta.");
+            step1.setDescription("Sare AI devta offline chale gaye hain. Satellites ka dabba gul hone se ab koi madad nahi karega.");
             step1.setSurvivalRateMultiplier(0.00);
             steps.add(step1);
             
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step2 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step2.setTitle("Apna Kachra Dekho");
-            step2.setDescription("Tum \"" + request.getLocation() + "\" par stuck ho aur tumhare jhole mein [" + gearList + "] hai. Is kachre se kya hi hoga? Kuch nahi.");
+            step2.setDescription("Tum \"" + request.getLocation() + "\" par stuck ho aur tumhare jhole mein [" + gearList + "] hai. Is kachre se kya hi hoga?");
             step2.setSurvivalRateMultiplier(0.05);
             steps.add(step2);
             
@@ -263,13 +264,13 @@ public class AdhrustadevathaService {
 
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step4 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step4.setTitle("Bhagwan ko Yaad Karo");
-            step4.setDescription("Bhagwan ke darbaar mein arzi lagao aur shanti se baithe raho.");
+            step4.setDescription("Bhagwan ke darbaar mein arzi lagao. Bas shanti se baithe raho.");
             step4.setSurvivalRateMultiplier(0.25);
             steps.add(step4);
 
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step5 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step5.setTitle("Aakhri Dua Mango");
-            step5.setDescription("Shanti se baitho aur aaram se apna khel khatam hone ka wait karo.");
+            step5.setDescription("Shanti se baitho. Apne khel khatam hone ka aaram se wait karo.");
             step5.setSurvivalRateMultiplier(1.00);
             steps.add(step5);
             
@@ -281,13 +282,13 @@ public class AdhrustadevathaService {
             
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step1 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step1.setTitle("Panic and Accept Fate");
-            step1.setDescription("Your current disaster \"" + request.getScenario() + "\" is absolute. The network links are dead, the satellites are fried, and frankly, no one can help you.");
+            step1.setDescription("Your current disaster \"" + request.getScenario() + "\" is absolute. Frankly, no one can help you since the network links are dead.");
             step1.setSurvivalRateMultiplier(0.00);
             steps.add(step1);
             
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step2 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step2.setTitle("Assess Your Trash");
-            step2.setDescription("You are stuck at \"" + request.getLocation() + "\" with: [" + gearList + "]. Think about how this junk is going to save you. Hint: it won't.");
+            step2.setDescription("You are stuck at \"" + request.getLocation() + "\" with: [" + gearList + "]. Think about how this junk is not going to save you.");
             step2.setSurvivalRateMultiplier(0.05);
             steps.add(step2);
             
@@ -305,7 +306,7 @@ public class AdhrustadevathaService {
 
             com.rockstarpainkiller.ampbreaker.model.SurvivalStep step5 = new com.rockstarpainkiller.ampbreaker.model.SurvivalStep();
             step5.setTitle("Prepare for Impact");
-            step5.setDescription("Find a comfortable spot, sit down, and wait for the inevitable doom.");
+            step5.setDescription("Find a comfortable spot. Sit down and wait for the inevitable doom.");
             step5.setSurvivalRateMultiplier(1.00);
             steps.add(step5);
             
